@@ -103,16 +103,38 @@ fun main() {
     println("Reversed linked list:")
     printList(reversedHead)*/
 
-    val arr = intArrayOf(2,5,9,13,17,21,30)
+   /* val arr = intArrayOf(2,5,9,13,17,21,30)
     if(binarySearch(arr,0,arr.size - 1,30))
         println("element found")
     else
-        println("not found")
+        println("not found")*/
+
+  //  printSquarePattern(5)
+
+    /*val nums = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+    val targetSum = 10
+
+    val pairs = PrintPairs(nums, targetSum)
+    if (pairs.isNotEmpty()) {
+        println("Pairs with sum $targetSum:")
+        pairs.forEach { println("${it.first} + ${it.second} = $targetSum") }
+    } else {
+        println("No pairs found with sum $targetSum.")
+    }*/
+
+    /*val str = "a!!!b.c,def!g@"
+    val rever = reverseStringSpecial(str)
+    println(rever)*/
+
+    val inputString = "aaaabbbbccdeef"
+    val compressedString = compressString(inputString)
+    println("Input String: $inputString")
+    println("Compressed String: $compressedString")
 
 }
 
 
-// reverse the String
+// reverse the String  abcd
 fun reverseString(str: String): String {
     var reverse = ""
 
@@ -122,7 +144,7 @@ fun reverseString(str: String): String {
     return reverse
 }
 
-// palindrom
+// palindrom abaaba
 
 fun isPalindrome(str: String): Boolean {
     var start = 0
@@ -137,7 +159,7 @@ fun isPalindrome(str: String): Boolean {
     return true
 }
 
-// string anagram
+// string anagram aaaab, abbbb
 fun anagramString(str1: String, str2: String): Boolean {
     if (str1.length != str2.length) {
         return false
@@ -166,7 +188,7 @@ fun countVowel(str: String) {
 }
 
 // matching elements in an integer array
-fun matchingElementArray(arr: IntArray): List<Pair<Int, Int>> {
+fun matchingElementArray(arr: IntArray): List<Pair<Int,Int>> {
     val matchingPair = mutableListOf<Pair<Int, Int>>()
     for (i in arr.indices) {
         for (j in 1 until arr.size) {
@@ -453,6 +475,94 @@ fun binarySearch(arr: IntArray, l: Int, r: Int, x: Int): Boolean {
 
     // We reach here when the element is not present in array
     return false
+}
+
+// print square pattern
+
+fun printSquarePattern(size:Int){
+    for (i in size downTo 1) {
+        for (j in 1..i) {
+            print("* ")
+        }
+        println()
+    }
+}
+
+// All pair in array
+
+fun PrintPairs(input:IntArray,sum:Int):List<Pair<Int,Int>>{
+    val list = mutableListOf<Pair<Int,Int>>()
+    for(i in input.indices){
+        for(j in i+1 until input.size ){
+            if(input[i] + input[j] == sum){
+                list.add((Pair(input[i],input[j])))
+            }
+        }
+    }
+   return list
+}
+
+
+// count occurrence
+/*var str: String? = "GeeksforGeeks A computer science portal portal for geeks "
+var word = "portal"*/
+fun countOccurrences(str:String,word:String):Int{
+    var split = str.split(" ")
+    var count = 0
+    for(i in split.indices){
+        if(word == split[i]){
+            count++
+        }
+    }
+    return count
+}
+
+
+
+//  reverse string without special charector
+// deep@uverma!   o/p amervu@peed
+fun reverseStringSpecial(str:String):String{
+    val charArray = str.toCharArray()
+    var right = charArray.size-1
+    var left = 0
+
+    while (left < right){
+        if(!charArray[left].isLetter()){
+            left++
+        }else if (!charArray[right].isLetter()){
+            right--
+        }else{
+            val temp = charArray[left]
+            charArray[left] = charArray[right]
+            charArray[right] = temp
+            left++
+            right--
+        }
+    }
+    return String(charArray)
+}
+
+fun compressString(input: String): String {
+    if (input.isEmpty()) return ""
+
+    val result = StringBuilder()
+    var count = 1
+
+    for (i in 1 until input.length) {
+        if (input[i] == input[i - 1]) {
+            count++
+        } else {
+            result.append(input[i - 1])
+            result.append(count)
+            count = 1
+        }
+    }
+
+    // Append the last character and its count
+    result.append(input[input.length - 1])
+    result.append(count)
+
+    return result.toString()
 }
 
 
