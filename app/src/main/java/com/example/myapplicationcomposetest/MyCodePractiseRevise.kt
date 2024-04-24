@@ -23,5 +23,13 @@ fun subsequenceArray(arr:IntArray,subArr:IntArray):Boolean{
     return true
 }
 
+// missing no from array
+fun miisingNo(arr: IntArray):Int{
+    val n = arr.size + 1
+    val total = n * (n + 1) / 2
+    val sum = arr.sum()
+    return total - sum
+}
+
 
 

@@ -1,5 +1,7 @@
 package com.example.myapplicationcomposetest
 
+import java.lang.StringBuilder
+
 
 fun main() {
     /*var value = "Hello deepu"
@@ -126,10 +128,17 @@ fun main() {
     val rever = reverseStringSpecial(str)
     println(rever)*/
 
-    val inputString = "aaaabbbbccdeef"
+    /*val inputString = "aaaabbbbccdeef"
     val compressedString = compressString(inputString)
     println("Input String: $inputString")
-    println("Compressed String: $compressedString")
+    println("Compressed String: $compressedString")*/
+
+   /* val M = 5
+    println(optimalLocation(M))*/
+
+    val arr = intArrayOf(1, 2,3, 4, 6) // Example array with one missing number
+    val missingNumber = findMissingNumber(arr)
+    println("The missing number is: $missingNumber")
 
 }
 
@@ -543,26 +552,60 @@ fun reverseStringSpecial(str:String):String{
 }
 
 fun compressString(input: String): String {
-    if (input.isEmpty()) return ""
-
+   if(input.isEmpty()) return ""
     val result = StringBuilder()
     var count = 1
-
-    for (i in 1 until input.length) {
-        if (input[i] == input[i - 1]) {
+    for (i in 1 until input.length){
+        if(input[i] == input[i-1]){
             count++
-        } else {
-            result.append(input[i - 1])
+        }else{
+            result.append(input[i-1])
             result.append(count)
+            result.append("\n")
             count = 1
         }
     }
 
-    // Append the last character and its count
-    result.append(input[input.length - 1])
+    result.append(input[input.length-1])
     result.append(count)
-
     return result.toString()
+}
+
+fun
+        optimalLocation(M: Int): Int {
+    var maxReachable = 0
+    var optimalLocation = 1
+
+    // Iterate through all locations between 1 and M
+    for (i in 1..M) {
+        var n = i
+        var reachableLocations = 1 // Boy can always reach the current location
+
+        // Iterate until the boy cannot move further
+        while (n > 1) {
+            n = if (n % 2 == 0) {
+                n / 2
+            } else {
+                3 * n + 1
+            }
+            reachableLocations++
+        }
+
+        // Update optimal location if more locations can be reached
+        if (reachableLocations > maxReachable) {
+            maxReachable = reachableLocations
+            optimalLocation = i
+        }
+    }
+
+    return optimalLocation
+}
+// val arr = intArrayOf(1, 2,3, 4, 6)
+fun findMissingNumber(arr: IntArray): Int {
+    val n = arr.size + 1 // n is the expected length of the array including the missing number
+    val totalSum = n * (n + 1) / 2 // Sum of all numbers from 1 to n
+    val arrSum = arr.sum() // Sum of all numbers in the array
+    return totalSum - arrSum
 }
 
 
